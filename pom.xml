@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Test-Driven Development Exercises
+  ~ (https://nitroduna.github.io/)
+  ~
+  ~ Copyright (C) 2010, Pedro Ballesteros <nitroduna@gmail.com>
+  ~ or third-party contributors as indicated by the @author tags or express
+  ~ copyright attribution statements applied by the authors. All third-party
+  ~ contributions are distributed under license by Pedro Ballesteros.
+  ~
+  ~ This copyrighted material is free software: you can redistribute it
+  ~ and/or modify it under the terms of the GNU General Public License as
+  ~ published by the Free Software Foundation, either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ This material is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this material. This copy is available in LICENSE-GPL.txt
+  ~ file. If not, see <http://www.gnu.org/licenses/>.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.nitroduna</groupId>
+  <artifactId>tdd-exercises</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Test-Driven Development Exercises</name>
+  <description>
+        Test-Driven Development - Exercises &amp; examples
+  </description>
+  <inceptionYear>2010</inceptionYear>
+  <url>https://nitroduna.github.io/tdd-exercises/</url>
+
+  <organization>
+    <name>nitroduna</name>
+    <url>https://nitroduna.github.io</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>GNU General Public License Version 3</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>nitroduna</id>
+      <name>Pedro Ballesteros</name>
+      <email>nitroduna@gmail.com</email>
+      <url>https://nitroduna.github.io/</url>
+    </developer>
+  </developers>
+
+  <modules>
+    <module>tdd-lesson-1</module>
+    <module>tdd-lesson-2</module>
+    <module>tdd-lesson-3</module>
+    <module>tdd-lesson-4</module>
+    <module>tdd-lesson-5</module>
+    <module>tdd-lesson-6</module>
+    <module>tdd-lesson-7</module>
+    <module>tdd-appendix-A</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.jdk>11</project.build.jdk>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <!-- Versión por defecto de las dependencias de todos los ejercicios -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.4</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>1.8.4</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.1</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <!-- JSTL: No incluído en Tomcat. SCOPE: runtime -->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.1.2</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <!-- Apache JSTL: No incluído en Tomcat. SCOPE: Runtime -->
+      <dependency>
+        <groupId>taglibs</groupId>
+        <artifactId>standard</artifactId>
+        <version>1.1.2</version>
+        <scope>runtime</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <!-- Default version and configuration of build plugins
+         NOTES:
+          The plugins in <pluginManagement> section are not included in the lifecycle
+          of modules, this section just define the default version and configuration.
+          We configure all plugins here to work with predecible builds -->
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.14.1</version>
+          <configuration>
+            <source>${project.build.jdk}</source>
+            <target>${project.build.jdk}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>3.6.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.3.1</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.5.4</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>3.5.4</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.5.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.5.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.9.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.7</version>
+          <dependencies>
+            <dependency>
+              <groupId>ant-contrib</groupId>
+              <artifactId>ant-contrib</artifactId>
+              <version>20020829</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-invoker-plugin</artifactId>
+          <version>3.9.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.6.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.21.0</version>
+        </plugin>
+
+        <!-- TODO: Migrate to JaCoCo
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>cobertura-maven-plugin</artifactId>
+          <version>2.6</version>
+        </plugin>
+        -->
+
+      </plugins>
+    </pluginManagement>
+
+    <!-- Plugins included in the lifecycle of all modules. -->
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+          <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+          <locales>en</locales>
+        </configuration>
+      </plugin>
+
+
+      <!-- Runs "cobertura:clean" before "site" goal to reset coverage counts in
+           the "ser" file. The cobertura plugin don't replace old counter and we
+           would get aggregated results from old exectution if we didn't run
+           "clean" goal before "site" goal. -->
+      <!-- TODO: Migrate to JaCoCo
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>site-cobertura-clean</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      -->
+
+      <!-- El "index.html" de todos los sites se crea usando el readme.txt
+           contenido en "/src/site". Se copian en "/src/site/apt" y en el
+           directorio base del proyecto para tenerlo más localizable.
+
+           El "site.css" se crea copiandolo desde el proyecto padre para
+           que toda la documentación mantenga el mismo estilo.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>site-copy-index-css</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <!-- Copia el readme.txt como el index.apt.vm, es
+                     decir con formato APT con templates velocity -->
+                <copy file="${basedir}/src/site/readme.txt" tofile="${basedir}/src/site/apt/index.apt.vm" failonerror="false" overwrite="true"/>
+
+                <!-- Copia el readme.txt al directorio raiz
+                     para hacerlo más visible en el proyecto -->
+                <copy file="${basedir}/src/site/readme.txt" todir="${basedir}" failonerror="false" overwrite="true"/>
+
+                <!-- Copia el site.css desde el padre o el padre del padre
+                     para igualar estilos en todos los módulos -->
+                <copy file="${basedir}/../src/site/resources/css/site.css" todir="${basedir}/src/site/resources/css" failonerror="false" overwrite="true"/>
+                <copy file="${basedir}/../../src/site/resources/css/site.css" todir="${basedir}/src/site/resources/css" failonerror="false" overwrite="true"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Maven 3 still needs <reporting> classic configuration.
+       The new Maven 3 format is not ready for direct use for now: classic configuration is still
+       the recommended format. The new format don't support report configuration inheritance.
+
+       See: http://maven.apache.org/plugins/maven-site-plugin/maven-3.html
+   -->
+  <reporting>
+    <!-- The plugins in the reporting section does not use the config in
+         pluginManagement section, so versions must be rewritten -->
+    <plugins>
+
+      <!-- Project Information Section. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.9.0</version>
+        <reportSets>
+          <reportSet>
+            <configuration>
+              <!--
+                  Desactiva el enlace de descarga de los jar de
+                  dependencias en los informes, y el contador de
+                  artefactos contenidos en dependencias. Esto hace
+                  que la generación de informes sea más rápida
+              -->
+              <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+              <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+            </configuration>
+            <reports>
+              <report>index</report>
+              <report>summary</report>
+              <report>modules</report>
+              <report>team</report>
+              <report>licenses</report>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>dependency-management</report>
+              <report>dependency-info</report>
+              <report>plugin-management</report>
+              <report>plugins</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <!-- Configuración de informes para la sección Project Reports -->
+
+      <!-- Informe de cobertura de tests.
+           IMPORTANTE:
+             El plugin "cobertura" lanza los test, por lo que se desactiva
+             la ejecución en el informe de "surefire". Si se elimina este
+             plugin se debe eliminar la opción "report-only" de "surefire".
+      -->
+      <!-- TODO: Migrate to JaCoCo
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+      -->
+
+      <!-- Documentos de código fuente con referencias cruzadas para
+           el enlace al código desde otros informes -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.6.0</version>
+      </plugin>
+
+      <!-- Resultado Test Unitarios.
+           IMPORTANTE:
+             Se configura "report-only" para evitar que se lancen dos
+             veces los tests ya que los lanza el plugin de "cobertura".
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.5.4</version>
+        <reportSets>
+          <reportSet>
+            <id>unit-test-report</id>
+            <reports>
+              <!-- report>report-only</report-->
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <!-- Análisis estático de código:
+           * Possible DRY violation (copy/paste code)
+           * Possible bugs - empty try/catch/finally/switch statements
+           * Dead code - unused local variables, parameters and private methods
+           * Suboptimal code - wasteful String/StringBuffer usage
+           * Overcomplicated expressions - unnecessary if statements, for loops
+           * that could be while loops
+           * Duplicate code - copied/pasted code means copied/pasted bugs
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.28.0</version>
+        <configuration>
+          <targetJdk>${project.build.jdk}</targetJdk>
+        </configuration>
+      </plugin>
+
+      <!-- Generación y configuración de JavaDocs.
+           NOTA:
+            Esta configuración evita que se detenga la generación en los
+            modulos que no compilan y para que no se genere un javadoc
+            agregado ya que el código de los modulos está muy repetido
+            al consistir en diferentes avances de los mismos ejercicios.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <configuration>
+          <detectJavaApiLink>true</detectJavaApiLink>
+          <doclint>none</doclint>
+        </configuration>
+
+        <reportSets>
+          <reportSet>
+            <id>default-html</id>
+            <configuration>
+              <failOnError>false</failOnError>
+              <show>package</show>
+            </configuration>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+
+          <!-- Unit Test Javadocs -->
+          <reportSet>
+            <id>test-html</id>
+            <configuration>
+              <failOnError>false</failOnError>
+              <show>package</show>
+            </configuration>
+            <reports>
+              <report>test-javadoc</report>
+            </reports>
+          </reportSet>
+
+          <!-- Elimina la generación del javadoc agregado. -->
+          <reportSet>
+            <id>aggregate</id>
+            <configuration>
+              <failOnError>false</failOnError>
+            </configuration>
+            <reports>
+            </reports>
+          </reportSet>
+
+        </reportSets>
+      </plugin>
+
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <!--
+        Define un perfil para generar una documentación desplegable
+        de todos los modulos mediante:
+
+        mvn site
+        mvn -Psite-stage site:stage
+
+        NOTA:
+           El elemento <site> de <distributionManagement> no se define fuera de
+           un perfil para evitar que se rompan los enlaces relativos definidos
+           en "site.xml" cuando se quiere generar la domumentación de un solo
+           modulo mediante "mvn site".
+      -->
+      <id>site-stage</id>
+      <distributionManagement>
+        <site>
+          <id>site-deploy</id>
+          <url>https://nitroduna.github.io/tdd-exercises</url>
+        </site>
+      </distributionManagement>
+    </profile>
+  </profiles>
+
+</project>

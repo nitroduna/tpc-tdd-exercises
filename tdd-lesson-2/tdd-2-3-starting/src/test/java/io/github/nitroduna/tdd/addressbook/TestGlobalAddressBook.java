@@ -1,0 +1,124 @@
+/*
+ * Copyright (C) 2010, Pedro Ballesteros <nitroduna@gmail.com>
+ *
+ * This file is part of nitroduna Test-Driven Development Exercises
+ * Exercises(https://nitroduna.github.io/)
+ *
+ * This copyrighted material is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This material is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this material. This copy is available in LICENSE-GPL.txt
+ * file. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package io.github.nitroduna.tdd.addressbook;
+
+import io.github.nitroduna.tdd.addressbook.GlobalAddressBook;
+import io.github.nitroduna.tdd.domain.Contact;
+import java.util.List;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ * Resultado despues de iterar varias veces el bucle TDD.
+ *
+ * <p>Se implementan dos comportamientos, el de añadir un contacto a la
+ * agenda y el de obtener un contacto de la agenda.</p>
+ *
+ * <p>Durante la implementación del comportamiento de obtener agenda
+ * vemos necesario que el comportamiento de añadir devuelva identificadores</p>
+ *
+ * <p>Se obtiene una primera aproximación que posiblemente se tenga
+ * que refinar refactorizando.</p>
+ *
+ * @author Pedro Ballesteros (nitroduna@gmail.com)
+ */
+public class TestGlobalAddressBook {
+
+    /**
+     * Test que añade un contacto y se verifica obteniendo el contenido
+     * actual de la agenda.
+     */
+    @Test
+    public void testAddContact() {
+        // Creación del "Object Under Test"
+        GlobalAddressBook addressBook = new GlobalAddressBook();
+
+        // Fixture: Creación de datos de prueba o "Test Objects"
+        // Diseño: Decidimos que una clase Contact tendrá los datos de los contactos.
+        Contact contact = new Contact();
+        contact.setFirstName("Pedro");
+
+        // Test.
+        addressBook.addContact(contact);
+
+        // Verifica que la agenda contiene el contacto que se acaba de añadir.
+        // Pregunta: ¿Es correcto usar métodos del Object Under Test para
+        //            realizar la verificación?.
+        List<Contact> contacts = addressBook.getAll();
+        assertEquals(1, contacts.size());
+        assertEquals("Pedro", contacts.get(0).getFirstName());
+    }
+
+    /**
+     * Verifica que al añadir contactos se genera un identificador
+     * unico que nos sirve para obtener contactos.
+     *
+     * Este test se implementa cuando intentamos implementar el
+     * comportamiento "getContact", entonces detectamos la necesidad
+     * de que los contactos nuevos tengan un id único asociado.
+     */
+    @Test
+    public void testAddContactVerifyId() {
+        // Creación del "Object Under Test"
+        GlobalAddressBook addressBook = new GlobalAddressBook();
+
+        // Fixture
+        Contact contact = new Contact();
+
+        // Ejecución del Test
+        String contactId = addressBook.addContact(contact);
+
+        // Por ahora lo unico que se puede es asegurar que no lanza
+        // excepciones y que devuelve un id válido.
+        assertNotNull(contactId);
+        assertTrue(contactId.trim().length() > 0);
+    }
+
+    /**
+     * Para verificar el comportamiento obtener contacto (getContact)
+     * se debe hacer uso del id generado.
+     *
+     * Este test por tanto mejora el test anterior (que incluso podría
+     * ser eliminado).
+     */
+    @Test
+    public void testGetContact() {
+        // Creación del "Object Under Test"
+        GlobalAddressBook addressBook = new GlobalAddressBook();
+
+        // Fixture: Creación de datos de prueba e inicialización del entorno
+        //          de tests (se necesita una agenda con algún contacto presente).
+        //
+        // Pregunta: ¿Es correcto usar métodos del "Object Under Test" para
+        //            inicializar el entorno de la prueba?
+        Contact expected = new Contact();
+        expected.setFirstName("Pedro");
+        String expectedId = addressBook.addContact(expected);
+
+        // Ejecución del test
+        Contact actual = addressBook.getContact(expectedId);
+
+        // Verificación
+        assertEquals(expectedId, actual.getId());
+        assertEquals("Pedro", actual.getFirstName());
+    }
+}

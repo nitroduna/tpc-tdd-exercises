@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Author     : Pedro Ballesteros
+    Description:
+        Aamplian los menus heredados del proyecto padre.
+-->
+<site xmlns="http://maven.apache.org/SITE/2.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SITE/2.0.0 https://maven.apache.org/xsd/site-2.0.0.xsd">
+    <body>
+        <menu name="Informes - Integración">
+            <item name="Test Integración" href="failsafe-report.html"/>
+        </menu>
+    </body>
+</site>
+
